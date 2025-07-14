@@ -1,6 +1,136 @@
+# Dashview V2 - Home Assistant Custom Panel
+
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
+[![GitHub Release](https://img.shields.io/github/release/markusholzhaeuser/dashviewv2.svg)](https://github.com/markusholzhaeuser/dashviewv2/releases)
+[![License](https://img.shields.io/github/license/markusholzhaeuser/dashviewv2.svg)](LICENSE)
+
+A custom Home Assistant panel that displays in the sidebar, providing a foundation for dashboard functionality. Built with modern web technologies and designed for easy extension.
+
+## 🌟 Features
+
+- **Custom Panel Integration**: Appears directly in your Home Assistant sidebar
+- **Modern Technology**: Built with Lit Element 3.0 for optimal performance
+- **Responsive Design**: Adapts to different screen sizes with Home Assistant theming
+- **HACS Compatible**: Easy installation through the Home Assistant Community Store
+- **Future-Ready**: Structured for easy enhancement with additional features
+
+## 📦 Installation
+
+### HACS Installation (Recommended)
+
+1. Make sure you have [HACS](https://hacs.xyz/) installed in your Home Assistant instance
+2. Go to HACS → Integrations
+3. Click the menu (⋮) in the top right corner
+4. Select "Custom repositories"
+5. Add this repository URL: `https://github.com/markusholzhaeuser/dashviewv2`
+6. Select "Integration" as the category
+7. Click "Add"
+8. Find "Dashview V2" in the integrations list and click "Install"
+9. Restart Home Assistant
+
+### Manual Installation
+
+1. Download the latest release from the [releases page](https://github.com/markusholzhaeuser/dashviewv2/releases)
+2. Extract the `custom_components/dashview_v2` folder
+3. Copy it to your Home Assistant's `custom_components` directory
+4. Restart Home Assistant
+
+## 🚀 Usage
+
+After installation and restart:
+
+1. Look for "Dashview V2" in your Home Assistant sidebar
+2. Click on it to open the custom panel
+3. You'll see the "Hello World" message - ready for customization!
+
+## 🛠️ Development Setup
+
+### Prerequisites
+
+- Home Assistant development environment
+- Python 3.11+
+- Node.js and npm (for frontend development)
+- Git
+
+### Local Development
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/markusholzhaeuser/dashviewv2.git
+   cd dashviewv2
+   ```
+
+2. Copy to your Home Assistant development environment:
+   ```bash
+   cp -r custom_components/dashview_v2 /path/to/homeassistant/config/custom_components/
+   ```
+
+3. Restart Home Assistant to load the component
+
+### Testing
+
+Run the component tests:
+```bash
+pytest tests/test_init.py -v
+```
+
+Validate Python syntax:
+```bash
+python -m py_compile custom_components/dashview_v2/*.py
+```
+
+## 🐛 Troubleshooting
+
+### Panel Not Appearing
+
+1. Check Home Assistant logs for errors:
+   ```
+   Settings → System → Logs
+   ```
+
+2. Verify the component loaded:
+   ```
+   Developer Tools → States → Filter by "dashview"
+   ```
+
+3. Clear browser cache and reload
+
+### JavaScript Errors
+
+1. Open browser developer console (F12)
+2. Check for errors when clicking the panel
+3. Ensure you're using a modern browser
+
+## 📝 Component Structure
+
+```
+custom_components/dashview_v2/
+├── __init__.py              # Component setup and panel registration
+├── manifest.json            # Component metadata
+├── const.py                 # Component constants
+└── panel/
+    └── dashview-v2-panel.js # Frontend panel implementation
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
 # Context Engineering Template
 
-A comprehensive template for getting started with Context Engineering - the discipline of engineering context for AI coding assistants so they have the information necessary to get the job done end to end.
+This repository also serves as a comprehensive template for getting started with Context Engineering - the discipline of engineering context for AI coding assistants so they have the information necessary to get the job done end to end.
 
 > **Context Engineering is 10x better than prompt engineering and 100x better than vibe coding.**
 

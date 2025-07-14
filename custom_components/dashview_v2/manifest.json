@@ -1,0 +1,11 @@
+{
+  "domain": "dashview_v2",
+  "name": "Dashview V2",
+  "codeowners": ["@markusholzhaeuser"],
+  "config_flow": false,
+  "dependencies": ["frontend"],
+  "documentation": "https://github.com/markusholzhaeuser/dashviewv2",
+  "issue_tracker": "https://github.com/markusholzhaeuser/dashviewv2/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}
