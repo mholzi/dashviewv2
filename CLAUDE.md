@@ -16,9 +16,12 @@
 - **Use python_dotenv and load_env()** for environment variables.
 
 ### 🧪 Testing & Reliability
-- **Always create Pytest unit tests for new features** (functions, classes, routes, etc).
+- **Python: Always create Pytest unit tests for new features** (functions, classes, routes, etc).
+- **JavaScript/TypeScript: Always create Jest unit tests for new features** (components, utilities, widgets, etc).
 - **After updating any logic**, check whether existing unit tests need to be updated. If so, do it.
 - **Tests should live in a `/tests` folder** mirroring the main app structure.
+  - For Python: `/tests` in root
+  - For JavaScript/TypeScript: `/frontend/src/__tests__` or colocated with source files as `*.test.ts`
   - Include at least:
     - 1 test for expected use
     - 1 edge case
@@ -29,10 +32,14 @@
 - Add new sub-tasks or TODOs discovered during development to `TASK.md` under a “Discovered During Work” section.
 
 ### 📎 Style & Conventions
-- **Use Python** as the primary language.
-- **Follow PEP8**, use type hints, and format with `black`.
-- **Use `pydantic` for data validation**.
-- Use `FastAPI` for APIs and `SQLAlchemy` or `SQLModel` for ORM if applicable.
+- **Backend: Use Python** as the primary language.
+  - **Follow PEP8**, use type hints, and format with `black`.
+  - **Use `pydantic` for data validation**.
+  - Use `FastAPI` for APIs and `SQLAlchemy` or `SQLModel` for ORM if applicable.
+- **Frontend: Use TypeScript** for all new frontend code.
+  - **Follow Home Assistant's TypeScript conventions**.
+  - **Use ESLint and Prettier** for formatting.
+  - **Use Lit Element 3.x** for web components.
 - Write **docstrings for every function** using the Google style:
   ```python
   def example():
@@ -54,6 +61,8 @@
 
 ### 🧠 AI Behavior Rules
 - **Never assume missing context. Ask questions if uncertain.**
-- **Never hallucinate libraries or functions** – only use known, verified Python packages.
+- **Never hallucinate libraries or functions** – only use known, verified packages (Python or npm).
 - **Always confirm file paths and module names** exist before referencing them in code or tests.
 - **Never delete or overwrite existing code** unless explicitly instructed to or if part of a task from `TASK.md`.
+- **Run tests after implementation** – For Python: `pytest`, For TypeScript: `npm test` or `jest`.
+- **Validate builds work** – For frontend: `npm run build` should complete without errors.

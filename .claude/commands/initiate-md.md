@@ -41,7 +41,7 @@ Ask clarifying questions to refine the feature request:
 - Integration needs
 - Performance requirements
 - Testing approaches
-
+Ask questions 1 by 1 with details about pros and cons of options at hand. 
 ## Template Structure to Follow
 
 ```markdown

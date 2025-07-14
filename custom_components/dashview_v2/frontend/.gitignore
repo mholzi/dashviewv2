@@ -1,0 +1,10 @@
+node_modules/
+dist/*
+!dist/.gitkeep
+!dist/dashview-v2.js
+coverage/
+*.log
+.DS_Store
+.env
+.vscode/
+*.map

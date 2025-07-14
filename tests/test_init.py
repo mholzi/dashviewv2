@@ -15,7 +15,7 @@ def mock_hass():
     hass.components.frontend = Mock()
     hass.components.frontend.async_register_built_in_panel = Mock()
     hass.config = Mock()
-    hass.config.path = Mock(return_value="custom_components/dashview_v2/panel")
+    hass.config.path = Mock(return_value="custom_components/dashview_v2/frontend/dist")
     hass.data = {"frontend_panels": {}}
     return hass
 
@@ -23,16 +23,20 @@ def mock_hass():
 @pytest.mark.asyncio
 async def test_setup(mock_hass):
     """Test component setup."""
-    with patch('custom_components.dashview_v2.HomeAssistant', Mock):
+    with patch('custom_components.dashview_v2.HomeAssistant', Mock), \
+         patch('custom_components.dashview_v2.backend.api.register_websocket_commands') as mock_register_ws:
         from custom_components.dashview_v2 import async_setup
         
         result = await async_setup(mock_hass, {})
         assert result is True
         
+        # Verify WebSocket commands were registered
+        mock_register_ws.assert_called_once_with(mock_hass)
+        
         # Verify static path was registered
         mock_hass.http.register_static_path.assert_called_once_with(
-            "/dashview_v2-panel",
-            "custom_components/dashview_v2/panel",
+            "/dashview_v2-dashboard",
+            "custom_components/dashview_v2/frontend/dist",
             True
         )
         
@@ -43,7 +47,8 @@ async def test_setup(mock_hass):
 @pytest.mark.asyncio
 async def test_panel_config(mock_hass):
     """Test panel configuration."""
-    with patch('custom_components.dashview_v2.HomeAssistant', Mock):
+    with patch('custom_components.dashview_v2.HomeAssistant', Mock), \
+         patch('custom_components.dashview_v2.backend.api.register_websocket_commands'):
         from custom_components.dashview_v2 import async_setup
         
         await async_setup(mock_hass, {})
@@ -61,8 +66,8 @@ async def test_panel_config(mock_hass):
         
         # Verify custom panel config
         panel_config = kwargs["config"]["_panel_custom"]
-        assert panel_config["name"] == "dashview-v2-panel"
-        assert panel_config["module_url"] == "/dashview_v2-panel/dashview-v2-panel.js"
+        assert panel_config["name"] == "dashview-v2-dashboard"
+        assert panel_config["module_url"] == "/dashview_v2-dashboard/dashview-v2.js"
         assert panel_config["embed_iframe"] is False
         assert panel_config["trust_external"] is False
 
@@ -71,15 +76,17 @@ async def test_panel_config(mock_hass):
 async def test_constants_imported():
     """Test that constants are properly imported and used."""
     from custom_components.dashview_v2.const import (
+        DASHBOARD_NAME,
+        DASHBOARD_URL,
         DOMAIN,
         PANEL_ICON,
-        PANEL_NAME,
         PANEL_TITLE,
-        PANEL_URL,
+        VERSION,
     )
     
     assert DOMAIN == "dashview_v2"
-    assert PANEL_URL == "/dashview_v2-panel"
+    assert VERSION == "0.2.0"
+    assert DASHBOARD_URL == "/dashview_v2-dashboard"
+    assert DASHBOARD_NAME == "dashview-v2-dashboard"
     assert PANEL_TITLE == "Dashview V2"
     assert PANEL_ICON == "mdi:view-dashboard"
-    assert PANEL_NAME == "dashview-v2-panel"

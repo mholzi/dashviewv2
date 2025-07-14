@@ -1,18 +1,20 @@
-# Dashview V2 - Home Assistant Custom Panel
+# Dashview V2 - Intelligent Dashboard Framework for Home Assistant
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
 [![GitHub Release](https://img.shields.io/github/release/markusholzhaeuser/dashviewv2.svg)](https://github.com/markusholzhaeuser/dashviewv2/releases)
 [![License](https://img.shields.io/github/license/markusholzhaeuser/dashviewv2.svg)](LICENSE)
 
-A custom Home Assistant panel that displays in the sidebar, providing a foundation for dashboard functionality. Built with modern web technologies and designed for easy extension.
+An intelligent dashboard framework for Home Assistant that analyzes your home's complexity and provides a modern, customizable interface. Built with TypeScript, Lit Element 3.0, and WebSocket APIs for real-time updates.
 
 ## 🌟 Features
 
-- **Custom Panel Integration**: Appears directly in your Home Assistant sidebar
-- **Modern Technology**: Built with Lit Element 3.0 for optimal performance
-- **Responsive Design**: Adapts to different screen sizes with Home Assistant theming
+- **Intelligent Home Analysis**: Automatically analyzes your home's complexity and entity distribution
+- **Modern TypeScript Architecture**: Built with TypeScript and Lit Element 3.0 for type safety and performance
+- **Real-time WebSocket API**: Custom WebSocket commands for instant updates
+- **Modular Framework**: Extensible architecture supporting widgets, layouts, and custom components
+- **Production Build System**: Webpack 5 with optimized builds for HACS distribution
+- **Comprehensive Testing**: Jest tests for frontend, pytest for backend
 - **HACS Compatible**: Easy installation through the Home Assistant Community Store
-- **Future-Ready**: Structured for easy enhancement with additional features
 
 ## 📦 Installation
 
@@ -41,7 +43,11 @@ After installation and restart:
 
 1. Look for "Dashview V2" in your Home Assistant sidebar
 2. Click on it to open the custom panel
-3. You'll see the "Hello World" message - ready for customization!
+3. You'll see an enhanced welcome screen showing:
+   - Your home's entity count
+   - Number of rooms/areas
+   - Complexity score (1-10)
+   - List of detected areas
 
 ## 🛠️ Development Setup
 
@@ -49,7 +55,7 @@ After installation and restart:
 
 - Home Assistant development environment
 - Python 3.11+
-- Node.js and npm (for frontend development)
+- Node.js 18+ and npm (for frontend development)
 - Git
 
 ### Local Development
@@ -60,23 +66,50 @@ After installation and restart:
    cd dashviewv2
    ```
 
-2. Copy to your Home Assistant development environment:
+2. Install frontend dependencies:
+   ```bash
+   cd custom_components/dashview_v2/frontend
+   npm install
+   ```
+
+3. Build the frontend:
+   ```bash
+   npm run build:dev  # For development
+   npm run build:prod # For production/release
+   ```
+
+4. Copy to your Home Assistant development environment:
    ```bash
    cp -r custom_components/dashview_v2 /path/to/homeassistant/config/custom_components/
    ```
 
-3. Restart Home Assistant to load the component
+5. Restart Home Assistant to load the component
 
 ### Testing
 
-Run the component tests:
+#### Python Tests
+Run the backend tests:
 ```bash
-pytest tests/test_init.py -v
+pytest tests/ -v
 ```
 
-Validate Python syntax:
+#### Frontend Tests
+Run the frontend tests:
 ```bash
-python -m py_compile custom_components/dashview_v2/*.py
+cd custom_components/dashview_v2/frontend
+npm test
+```
+
+Run with coverage:
+```bash
+npm run test:coverage
+```
+
+#### Code Quality
+Lint the frontend code:
+```bash
+npm run lint
+npm run type-check
 ```
 
 ## 🐛 Troubleshooting
@@ -99,17 +132,40 @@ python -m py_compile custom_components/dashview_v2/*.py
 
 1. Open browser developer console (F12)
 2. Check for errors when clicking the panel
-3. Ensure you're using a modern browser
+3. Look for WebSocket connection errors
+4. Ensure you're using a modern browser that supports ES2017+
+
+### WebSocket Connection Issues
+
+1. Check that WebSocket commands are registered:
+   - Look for "Registered websocket command: dashview_v2/get_home_info" in HA logs
+
+2. Test WebSocket manually in browser console:
+   ```javascript
+   await hass.callWS({type: 'dashview_v2/get_home_info'})
+   ```
 
 ## 📝 Component Structure
 
 ```
 custom_components/dashview_v2/
-├── __init__.py              # Component setup and panel registration
-├── manifest.json            # Component metadata
+├── __init__.py              # Component setup and WebSocket registration
+├── manifest.json            # Component metadata (v0.2.0)
 ├── const.py                 # Component constants
-└── panel/
-    └── dashview-v2-panel.js # Frontend panel implementation
+├── frontend/                # TypeScript frontend
+│   ├── src/                 # Source files
+│   │   ├── index.ts         # Entry point
+│   │   ├── types/           # TypeScript definitions
+│   │   ├── core/            # Base classes
+│   │   ├── dashboard/       # Main dashboard
+│   │   └── utils/           # Utilities
+│   ├── __tests__/           # Jest tests
+│   ├── build/               # Webpack configs
+│   └── dist/                # Built files
+└── backend/                 # Python backend
+    ├── api/                 # WebSocket handlers
+    ├── config/              # Configuration
+    └── intelligence/        # Home analysis
 ```
 
 ## 🤝 Contributing
@@ -118,9 +174,42 @@ Contributions are welcome! Please:
 
 1. Fork the repository
 2. Create a feature branch
-3. Make your changes
-4. Run tests
-5. Submit a pull request
+3. Set up the development environment:
+   ```bash
+   cd custom_components/dashview_v2/frontend
+   npm install
+   npm run dev
+   ```
+4. Make your changes following the architecture patterns
+5. Run all tests:
+   ```bash
+   # Frontend
+   npm test
+   npm run lint
+   
+   # Backend
+   pytest tests/ -v
+   ```
+6. Build for production: `npm run build:prod`
+7. Submit a pull request
+
+## 🏗️ Architecture
+
+### Frontend (TypeScript/Lit Element)
+- **Base Element Pattern**: All components extend `DashviewBaseElement`
+- **WebSocket Integration**: Real-time communication via `WebSocketConnection`
+- **Type Safety**: Full TypeScript with Home Assistant type definitions
+- **Modular Design**: Separate directories for widgets, layouts, components
+
+### Backend (Python)
+- **WebSocket API**: Custom commands for frontend communication
+- **Home Intelligence**: Analyzes home complexity and entity distribution
+- **Modular Structure**: Separate API, config, and intelligence modules
+
+### Development Workflow
+1. Frontend changes trigger hot reload via webpack dev server
+2. Backend changes require Home Assistant restart
+3. Production builds are optimized and committed for HACS releases
 
 ## 📄 License
 
