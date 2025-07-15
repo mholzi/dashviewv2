@@ -44,7 +44,8 @@
       "Bash(--notes-file RELEASE_NOTES_v0.2.1.md)",
       "Bash(/execute-prp PRPs/widget-enhancement-polish.md)",
       "Bash(npm run type-check:*)",
-      "Bash(npm run build:dev:*)"
+      "Bash(npm run build:dev:*)",
+      "Bash(gh auth refresh:*)"
     ],
     "deny": []
   }

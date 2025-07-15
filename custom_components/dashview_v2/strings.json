@@ -1,0 +1,17 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Dashview V2",
+        "description": "Set up the Dashview V2 intelligent dashboard for Home Assistant.\n\nThis integration provides a modern, customizable dashboard with:\n- Intelligent home analysis and complexity scoring\n- Real-time WebSocket updates\n- Responsive design for all devices\n- TypeScript framework with visual polish\n\nFor more information, visit: {docs_url}",
+        "data": {}
+      }
+    },
+    "error": {
+      "already_configured": "Dashview V2 is already configured"
+    },
+    "abort": {
+      "already_configured": "Dashview V2 is already configured"
+    }
+  }
+}
