@@ -38,7 +38,13 @@
       "Bash(--notes-file RELEASE_NOTES_v0.2.0.md)",
       "Bash(git remote get-url:*)",
       "Bash(--repo mholzi/dashviewv2 )",
-      "Bash(--title \"v0.2.0 - Intelligent Dashboard Framework\" )"
+      "Bash(--title \"v0.2.0 - Intelligent Dashboard Framework\" )",
+      "Bash(--repo mholzi/dashviewv2 )",
+      "Bash(--title \"v0.2.1 - Foundation Step 2 Complete\" )",
+      "Bash(--notes-file RELEASE_NOTES_v0.2.1.md)",
+      "Bash(/execute-prp PRPs/widget-enhancement-polish.md)",
+      "Bash(npm run type-check:*)",
+      "Bash(npm run build:dev:*)"
     ],
     "deny": []
   }

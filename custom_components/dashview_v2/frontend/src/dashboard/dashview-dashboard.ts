@@ -1,10 +1,10 @@
-import { PropertyValues, css, html, TemplateResult } from 'lit';
+import { PropertyValues, TemplateResult, css, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { DashviewBaseElement } from '@/core/base-element';
 import { WebSocketConnection } from '@/core/websocket-connection';
 import { StateManager } from '@/core/state-manager';
 import { SubscriptionManager } from '@/core/subscription-manager';
-import { LayoutEngine, AreaInfo } from '@/layouts/layout-engine';
+import { AreaInfo, LayoutEngine } from '@/layouts/layout-engine';
 import { BaseLayout, Breakpoint } from '@/layouts/base-layout';
 import { WidgetConfig } from '@/core/widget-base';
 import { dashviewStyles, dashviewTheme } from '@/styles/theme';

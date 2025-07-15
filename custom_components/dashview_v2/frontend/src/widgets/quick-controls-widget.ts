@@ -3,7 +3,7 @@
  * Provides fast access to frequently used controls and scenes.
  */
 
-import { html, css, PropertyValues, TemplateResult } from 'lit';
+import { PropertyValues, TemplateResult, css, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { DashviewWidget, WidgetConfig } from '../core/widget-base';
 

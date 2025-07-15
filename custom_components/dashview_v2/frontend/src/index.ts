@@ -1,5 +1,5 @@
 import './dashboard/dashview-dashboard';
-import { logger, LogLevel } from './utils/logger';
+import { LogLevel, logger } from './utils/logger';
 
 // Set up logger based on environment
 if (process.env.NODE_ENV === 'development') {

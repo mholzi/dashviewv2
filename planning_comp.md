@@ -73,107 +73,99 @@ class DashviewDashboard extends LitElement {
     rooms: { type: Array }
   };
   
-  // Intelligent initialization
+  // Basic initialization
   async firstUpdated() {
-    await this.analyzeHome();
-    this.selectOptimalLayout();
+    await this.discoverEntities();
+    this.selectLayout();
     this.initializeWidgets();
   }
 }
 ```
 
-#### Step 3: Home Intelligence Engine
-Build smart analysis system to understand home complexity:
-- Room detection from areas and entity naming
-- Device categorization by type and function
-- Usage pattern analysis
-- Relationship mapping between entities
-- Complexity scoring algorithm
+#### Step 3: Widget Enhancement & Polish
+Refine and enhance the existing widget system:
+- **Room Widget**: Add entity type icons, better state aggregation, mini-graphs
+- **Device Group Widget**: Improve grouping logic, add bulk controls
+- **Climate Widget**: Add schedule visualization, preset management
+- **Quick Controls**: Make it customizable, add favorite entities
 
+Focus on:
+- Consistent interaction patterns
+- Smooth animations and transitions
+- Better visual hierarchy
+- Improved touch targets for mobile
+- Loading states and error handling
+
+#### Step 4: Additional Layout Templates
+Expand beyond the standard layout with more options:
+- **Compact Layout**: For small homes/apartments
+- **Complex Layout**: For 10+ room homes
+- **Focus Layout**: Single room or area focus
+- **Mobile Layout**: Optimized for phones
+- **Tablet Layout**: Optimized for wall-mounted tablets
+
+Each layout should:
+- Have specific breakpoints
+- Define widget priorities
+- Handle overflow gracefully
+- Support customization
+
+#### Step 5: Configuration Storage System
+Build a robust configuration system:
 ```javascript
-class HomeIntelligence {
-  analyzeComplexity(hass) {
-    return {
-      roomCount: this.detectRooms(hass),
-      deviceTypes: this.categorizeDevices(hass),
-      automationLevel: this.assessAutomation(hass),
-      complexityScore: this.calculateScore(hass),
-      suggestedLayout: this.recommendLayout(hass)
-    };
+class ConfigurationManager {
+  // Save user preferences
+  async saveConfig(config) {
+    // Widget positions
+    // Hidden entities
+    // Custom settings
+    // Theme preferences
   }
-}
-```
-
-#### Step 4: Layout System Architecture
-Create flexible layout templates for different home types:
-- **Compact**: Studio/1-bedroom homes
-- **Standard**: 2-3 bedroom homes
-- **Complex**: Multi-floor with 4+ rooms
-- **Estate**: Large properties with zones
-- **Custom**: User-defined layouts
-
-Each layout includes:
-- Responsive breakpoints
-- Widget placement rules
-- Priority algorithms
-- Overflow handling
-
-#### Step 5: Widget Base Architecture
-Establish widget system inspired by Bubble Card's modularity:
-```javascript
-class DashviewWidget extends LitElement {
-  static properties = {
-    entities: { type: Array },
-    config: { type: Object },
-    layout: { type: String }
-  };
   
-  // Standard lifecycle
-  setConfig(config) { /* Validation */ }
-  render() { /* Template */ }
-  updated() { /* State sync */ }
+  // Load and merge with defaults
+  async loadConfig() {
+    // User config + intelligent defaults
+  }
   
-  // Widget-specific methods
-  getDefaultConfig() { }
-  validateConfig() { }
-  handleAction() { }
+  // Import/export functionality
+  async exportConfig() { }
+  async importConfig(data) { }
 }
 ```
 
 ### Phase 2: Core Widgets (Steps 6-10)
 
-#### Step 6: Room Overview Widget
-Multi-entity room control with:
-- Aggregated state display
-- Quick actions bar
-- Climate integration
-- Security status
-- Scene shortcuts
-- Expandable details view
-
-#### Step 7: Device Group Widget
-Intelligent grouping for similar devices:
-- All lights with brightness/color control
-- Climate devices with unified interface
-- Media players with source management
-- Security cameras with live preview
-- Smart plugs with consumption data
-
-#### Step 8: Activity Timeline Widget
+#### Step 6: Activity Timeline Widget
 Real-time home activity visualization:
 - Chronological event feed
 - Filterable by room/device/person
 - Automation trigger tracking
 - Motion/presence correlation
-- Energy usage patterns
+- Compact and expanded views
 
-#### Step 9: Climate Control Center
-Comprehensive HVAC management:
-- Multi-zone visualization
-- Schedule management
-- Energy efficiency insights
-- Weather integration
-- Preset management
+#### Step 7: Energy Dashboard Widget
+Comprehensive energy monitoring:
+- Real-time consumption display
+- Cost calculations
+- Device breakdown
+- Historical comparisons
+- Solar integration support
+
+#### Step 8: Scene Control Widget
+Advanced scene management:
+- Visual scene previews
+- One-touch activation
+- Scene scheduling
+- Conditional scenes
+- Scene creation from current state
+
+#### Step 9: Media Control Center
+Unified media management:
+- Multi-room audio control
+- Source selection
+- Playlist management
+- Volume synchronization
+- Now playing information
 
 #### Step 10: Security Dashboard Widget
 Unified security overview:
@@ -205,11 +197,11 @@ class DashviewEditor extends LitElement {
 ```
 
 Features:
-- Live preview with drag-and-drop
-- Widget library with search
-- Theme customization
-- Layout switching
-- Import/export configurations
+- Visual widget placement
+- Live preview
+- Widget library
+- Setting panels
+- Undo/redo support
 
 #### Step 12: Performance Optimization Layer
 Implement aggressive optimization strategies:
@@ -217,8 +209,8 @@ Implement aggressive optimization strategies:
 - Lazy loading for off-screen widgets
 - State diff algorithms
 - WebSocket message batching
-- Service worker for offline capability
-- IndexedDB for client-side caching
+- Efficient re-renders
+- Memory management
 
 ```javascript
 class PerformanceManager {
@@ -240,22 +232,35 @@ class PerformanceManager {
 }
 ```
 
-#### Step 13: Responsive Design System
-Adaptive layouts for all devices:
-- Breakpoint system: mobile, tablet, desktop, TV
-- Touch-optimized interactions
-- Gesture support (swipe, pinch, long-press)
-- Density settings (comfortable, compact, dense)
-- Orientation handling
+#### Step 13: Home Intelligence Engine
+Build smart analysis system to enhance user experience:
+- Usage pattern analysis
+- Entity relationship mapping
+- Automation effectiveness scoring
+- Personalized recommendations
+- Predictive actions
+
+```javascript
+class HomeIntelligence {
+  analyzePatterns() {
+    return {
+      frequentlyUsed: this.getFrequentEntities(),
+      correlations: this.findEntityCorrelations(),
+      suggestions: this.generateSuggestions(),
+      predictions: this.predictNextActions()
+    };
+  }
+}
+```
 
 #### Step 14: Advanced Interactions
 Rich interaction patterns:
 - Multi-select mode for bulk actions
-- Contextual menus
+- Drag and drop for widgets
+- Gesture support (swipe, pinch)
 - Keyboard shortcuts
 - Voice control integration
-- Gesture macros
-- Undo/redo system
+- Touch-friendly controls
 
 #### Step 15: Data Visualization Suite
 Beautiful data representation:
@@ -263,8 +268,8 @@ Beautiful data representation:
 - Temperature/humidity trends
 - Device usage heatmaps
 - Presence patterns
-- Network topology view
-- System health monitoring
+- Historical comparisons
+- Exportable reports
 
 ### Phase 4: Polish & Distribution (Steps 16-20)
 
@@ -286,10 +291,10 @@ Comprehensive theming system:
 
 Features:
 - Color scheme generator
-- Dark/light mode auto-switching
+- Dark/light mode support
 - Custom CSS injection
 - Per-widget styling
-- Animation preferences
+- Smooth transitions
 
 #### Step 17: Accessibility Implementation
 WCAG 2.1 AA compliance:
@@ -299,14 +304,14 @@ WCAG 2.1 AA compliance:
 - Reduced motion option
 - Focus indicators
 - ARIA labels
-- Skip links
+- Semantic HTML
 
 #### Step 18: Testing Infrastructure
 Comprehensive testing approach:
 ```javascript
 // Unit tests for widgets
 describe('RoomWidget', () => {
-  test('aggregates entity states correctly', () => {});
+  test('displays entity count correctly', () => {});
   test('handles missing entities gracefully', () => {});
   test('updates on state changes', () => {});
 });
@@ -317,23 +322,23 @@ describe('Dashboard Integration', () => {
   test('handles WebSocket reconnection', () => {});
 });
 
-// E2E tests with Cypress
+// E2E tests
 describe('User Flows', () => {
-  it('configures dashboard for first time', () => {});
-  it('customizes room widget', () => {});
+  it('navigates dashboard sections', () => {});
+  it('controls devices successfully', () => {});
 });
 ```
 
 #### Step 19: Documentation & Examples
 Comprehensive documentation:
 - Getting started guide
+- Widget documentation
 - Configuration reference
-- Widget gallery with demos
 - Video tutorials
 - API documentation
 - Troubleshooting guide
-- Migration from other dashboards
-- Best practices guide
+- Example dashboards
+- Best practices
 
 #### Step 20: Release & Community
 Launch strategy:
@@ -341,8 +346,8 @@ Launch strategy:
 - HACS integration
 - Home Assistant forum presence
 - Discord community
-- Example configurations repository
-- Template marketplace
+- Example configurations
+- Template sharing
 - Feature request system
 - Regular release cycle
 
@@ -350,40 +355,40 @@ Launch strategy:
 
 ### Frontend
 - **Framework**: Lit Element 3.x
-- **State Management**: MobX-style reactivity
-- **Build Tool**: Vite
-- **Styling**: CSS Modules + Custom Properties
-- **Testing**: Vitest + Cypress
+- **State Management**: Built-in reactivity
+- **Build Tool**: Webpack (current) → Consider Vite
+- **Styling**: CSS with Custom Properties
+- **Testing**: Jest + Web Test Runner
 - **Types**: TypeScript
 
 ### Backend
 - **Language**: Python 3.11+
 - **Framework**: Home Assistant integration
 - **API**: WebSocket + REST
-- **Caching**: In-memory + persistent
-- **Analysis**: NumPy for complexity calculations
+- **Storage**: HA Storage API
+- **Analysis**: Built-in algorithms
 
 ### DevOps
 - **CI/CD**: GitHub Actions
-- **Distribution**: HACS + Direct download
-- **Monitoring**: Sentry integration
-- **Analytics**: Privacy-respecting usage stats
+- **Distribution**: HACS
+- **Monitoring**: Error logging
+- **Versioning**: Semantic versioning
 
 ## Success Metrics
 
 1. **Performance**: Dashboard loads < 2s with 500+ entities
 2. **Adoption**: 1000+ active installations within 6 months
 3. **Stability**: < 0.1% crash rate
-4. **Satisfaction**: 4.5+ star rating on forums
-5. **Community**: 100+ active Discord members
+4. **Satisfaction**: 4.5+ star rating
+5. **Community**: Active user base
 
 ## Risk Mitigation
 
-1. **Complexity**: Start with MVP, iterate based on feedback
-2. **Performance**: Continuous profiling and optimization
-3. **Compatibility**: Test with diverse HA configurations
-4. **Competition**: Focus on "complete solution" differentiator
-5. **Maintenance**: Build strong community contributor base
+1. **Complexity**: Start simple, iterate based on feedback
+2. **Performance**: Profile early and often
+3. **Compatibility**: Test with diverse configurations
+4. **Competition**: Focus on complete solution advantage
+5. **Maintenance**: Build modular, testable code
 
 ## Timeline
 
@@ -395,4 +400,4 @@ Launch strategy:
 
 ## Conclusion
 
-Dashview V2 will revolutionize how users with complex homes interact with Home Assistant by providing an intelligent, pre-configured dashboard that adapts to their specific needs while maintaining the flexibility users expect. By learning from Bubble Card's success in customization and applying it to a complete dashboard solution, we can create a product that serves an underserved market segment.
+Dashview V2 will provide Home Assistant users with complex homes a comprehensive dashboard solution that works out of the box while remaining customizable. By focusing on complete dashboard experience rather than individual cards, we serve users who want a polished, intelligent solution without the need to build it themselves.

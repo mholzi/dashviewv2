@@ -203,7 +203,7 @@ export class StandardLayout extends BaseLayout {
     quickControls: number;
   } {
     // Base recommendations
-    let config = {
+    const config = {
       roomWidgets: Math.min(areaCount, 4),
       deviceGroups: 2,
       climateWidgets: 1,

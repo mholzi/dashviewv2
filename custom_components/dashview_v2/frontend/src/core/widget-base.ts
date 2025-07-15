@@ -6,8 +6,10 @@
 import { PropertyValues, css } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { DashviewBaseElement } from './base-element';
-import { StateManager, StateDiff } from './state-manager';
+import { StateDiff, StateManager } from './state-manager';
 import { SubscriptionManager } from './subscription-manager';
+import { HapticFeedback } from '../utils/gestures';
+import { ANIMATION_DURATION, EASING } from '../styles/animations';
 import type { HomeAssistant } from '../types';
 
 export interface WidgetConfig {
@@ -31,6 +33,8 @@ export abstract class DashviewWidget extends DashviewBaseElement {
   private subscriptionManager?: SubscriptionManager;
   private intersectionObserver?: IntersectionObserver;
   private stateUnsubscribers: (() => void)[] = [];
+  private keyboardHandlers: Map<string, (event: KeyboardEvent) => void> = new Map();
+  private animationFrameId?: number;
 
   /**
    * Get the list of entity IDs this widget wants to subscribe to.
@@ -104,6 +108,7 @@ export abstract class DashviewWidget extends DashviewBaseElement {
   connectedCallback(): void {
     super.connectedCallback();
     this.setupVisibilityObserver();
+    this.setupKeyboardHandlers();
   }
 
   /**
@@ -298,6 +303,14 @@ export abstract class DashviewWidget extends DashviewBaseElement {
       this.intersectionObserver = undefined;
     }
 
+    // Clean up keyboard handlers
+    this.removeKeyboardHandlers();
+
+    // Cancel any pending animation frames
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+
     // Clear state
     this.entityStates.clear();
   }
@@ -340,6 +353,112 @@ export abstract class DashviewWidget extends DashviewBaseElement {
   protected async turnOff(entityId: string): Promise<void> {
     const domain = entityId.split('.')[0];
     await this.callService(domain, 'turn_off', { entity_id: entityId });
+  }
+
+  /**
+   * Trigger haptic feedback with the specified intensity.
+   */
+  protected triggerHapticFeedback(intensity: 'light' | 'medium' | 'heavy' | 'success' | 'error' | 'selection'): void {
+    HapticFeedback[intensity]();
+  }
+
+  /**
+   * Animate an element with the specified animation.
+   */
+  protected animateElement(element: HTMLElement, animation: string, duration?: string): Promise<void> {
+    return new Promise((resolve) => {
+      const animationDuration = duration || ANIMATION_DURATION.normal;
+      
+      element.style.animation = `${animation} ${animationDuration} ${EASING.standard}`;
+      
+      const handleAnimationEnd = () => {
+        element.style.animation = '';
+        element.removeEventListener('animationend', handleAnimationEnd);
+        resolve();
+      };
+      
+      element.addEventListener('animationend', handleAnimationEnd);
+    });
+  }
+
+  /**
+   * Focus management helper.
+   */
+  protected focusElement(element: HTMLElement, options?: FocusOptions): void {
+    element.focus(options);
+  }
+
+  /**
+   * Set up keyboard event handlers for accessibility.
+   */
+  private setupKeyboardHandlers(): void {
+    // Default keyboard handlers
+    this.addKeyboardHandler('Escape', this.handleEscapeKey.bind(this));
+    this.addKeyboardHandler('Tab', this.handleTabKey.bind(this));
+    
+    this.addEventListener('keydown', this.handleKeydown.bind(this));
+  }
+
+  /**
+   * Remove keyboard event handlers.
+   */
+  private removeKeyboardHandlers(): void {
+    this.keyboardHandlers.clear();
+    this.removeEventListener('keydown', this.handleKeydown.bind(this));
+  }
+
+  /**
+   * Add a keyboard event handler.
+   */
+  protected addKeyboardHandler(key: string, handler: (event: KeyboardEvent) => void): void {
+    this.keyboardHandlers.set(key, handler);
+  }
+
+  /**
+   * Handle keyboard events.
+   */
+  private handleKeydown(event: KeyboardEvent): void {
+    const handler = this.keyboardHandlers.get(event.key);
+    if (handler) {
+      handler(event);
+    }
+  }
+
+  /**
+   * Handle Escape key (default: blur active element).
+   */
+  protected handleEscapeKey(_event: KeyboardEvent): void {
+    const activeElement = this.shadowRoot?.activeElement as HTMLElement;
+    if (activeElement) {
+      activeElement.blur();
+    }
+  }
+
+  /**
+   * Handle Tab key for focus management.
+   */
+  protected handleTabKey(_event: KeyboardEvent): void {
+    // Default behavior - could be overridden by subclasses
+  }
+
+  /**
+   * Get all focusable elements within the widget.
+   */
+  protected getFocusableElements(): HTMLElement[] {
+    const focusableSelectors = [
+      'button:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])',
+      'a[href]',
+      '[tabindex]:not([tabindex="-1"])',
+      'ha-icon-button:not([disabled])',
+      'mwc-button:not([disabled])',
+      'ha-switch:not([disabled])'
+    ].join(', ');
+
+    const elements = this.shadowRoot?.querySelectorAll(focusableSelectors) || [];
+    return Array.from(elements) as HTMLElement[];
   }
 
   /**
