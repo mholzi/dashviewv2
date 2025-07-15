@@ -1,0 +1,275 @@
+/**
+ * CSS Grid system for Dashview V2 dashboard layouts.
+ * Provides responsive grid templates and utilities.
+ */
+
+/* CSS Custom Properties for Grid System */
+:root {
+  /* Grid gaps */
+  --dashview-grid-gap-mobile: 8px;
+  --dashview-grid-gap-tablet: 12px;
+  --dashview-grid-gap-desktop: 16px;
+  --dashview-grid-gap-large: 20px;
+  
+  /* Container padding */
+  --dashview-grid-padding-mobile: 8px;
+  --dashview-grid-padding-tablet: 16px;
+  --dashview-grid-padding-desktop: 24px;
+  --dashview-grid-padding-large: 32px;
+  
+  /* Grid columns */
+  --dashview-grid-columns-mobile: 4;
+  --dashview-grid-columns-tablet: 8;
+  --dashview-grid-columns-desktop: 12;
+  --dashview-grid-columns-large: 12;
+  
+  /* Breakpoints */
+  --dashview-breakpoint-mobile: 768px;
+  --dashview-breakpoint-tablet: 1024px;
+  --dashview-breakpoint-desktop: 1440px;
+  --dashview-breakpoint-large: 1920px;
+  
+  /* Animation */
+  --dashview-grid-transition: all 0.3s ease;
+}
+
+/* Base Grid Container */
+.dashview-grid-container {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  transition: var(--dashview-grid-transition);
+}
+
+/* Standard Layout Grid Templates */
+.dashview-grid-standard {
+  /* Mobile Layout */
+  @media (max-width: 767px) {
+    grid-template-areas:
+      "header"
+      "main"
+      "sidebar"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto auto;
+    gap: var(--dashview-grid-gap-mobile);
+    padding: var(--dashview-grid-padding-mobile);
+  }
+  
+  /* Tablet Layout */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    grid-template-areas:
+      "header header"
+      "main main"
+      "sidebar sidebar"
+      "footer footer";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr auto auto;
+    gap: var(--dashview-grid-gap-tablet);
+    padding: var(--dashview-grid-padding-tablet);
+  }
+  
+  /* Desktop Layout */
+  @media (min-width: 1024px) and (max-width: 1439px) {
+    grid-template-areas:
+      "header header header"
+      "main main sidebar"
+      "footer footer footer";
+    grid-template-columns: 1fr 1fr minmax(280px, 0.5fr);
+    grid-template-rows: auto 1fr auto;
+    gap: var(--dashview-grid-gap-desktop);
+    padding: var(--dashview-grid-padding-desktop);
+  }
+  
+  /* Large Layout */
+  @media (min-width: 1440px) {
+    grid-template-areas:
+      "header header header"
+      "main main sidebar"
+      "footer footer footer";
+    grid-template-columns: 1fr 1fr minmax(320px, 0.6fr);
+    grid-template-rows: auto 1fr auto;
+    gap: var(--dashview-grid-gap-large);
+    padding: var(--dashview-grid-padding-large);
+  }
+}
+
+/* Grid Areas */
+.dashview-grid-header {
+  grid-area: header;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dashview-grid-gap-desktop);
+  align-items: center;
+}
+
+.dashview-grid-main {
+  grid-area: main;
+  display: grid;
+  gap: var(--dashview-grid-gap-desktop);
+  align-content: start;
+}
+
+.dashview-grid-sidebar {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  gap: var(--dashview-grid-gap-desktop);
+}
+
+.dashview-grid-footer {
+  grid-area: footer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Main Area Grid for Room Widgets */
+.dashview-grid-main {
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+  }
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Widget Grid Utilities */
+.dashview-widget-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.dashview-widget-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.dashview-widget-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.dashview-widget-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Responsive Widget Grid */
+.dashview-widget-grid-auto {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* Grid Item Utilities */
+.dashview-grid-span-2 {
+  grid-column: span 2;
+}
+
+.dashview-grid-span-3 {
+  grid-column: span 3;
+}
+
+.dashview-grid-span-full {
+  grid-column: 1 / -1;
+}
+
+/* Alignment Utilities */
+.dashview-grid-center {
+  display: grid;
+  place-items: center;
+}
+
+.dashview-grid-start {
+  align-content: start;
+}
+
+.dashview-grid-end {
+  align-content: end;
+}
+
+.dashview-grid-stretch {
+  align-content: stretch;
+}
+
+/* Gap Utilities */
+.dashview-gap-none {
+  gap: 0;
+}
+
+.dashview-gap-small {
+  gap: 8px;
+}
+
+.dashview-gap-medium {
+  gap: 16px;
+}
+
+.dashview-gap-large {
+  gap: 24px;
+}
+
+/* Animation Classes */
+.dashview-grid-animate {
+  transition: var(--dashview-grid-transition);
+}
+
+.dashview-grid-no-animate {
+  transition: none;
+}
+
+/* Loading State Grid */
+.dashview-grid-loading {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+/* Empty State Grid */
+.dashview-grid-empty {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  color: var(--secondary-text-color);
+}
+
+/* Debug Mode - Shows grid lines */
+.dashview-grid-debug {
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 0, 0, 0.1),
+      rgba(255, 0, 0, 0.1) 1px,
+      transparent 1px,
+      transparent 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.1),
+      rgba(255, 0, 0, 0.1) 1px,
+      transparent 1px,
+      transparent 40px
+    );
+}
+
+/* Accessibility - Focus Styles */
+.dashview-grid-container:focus-within {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .dashview-grid-container {
+    display: block;
+  }
+  
+  .dashview-grid-header,
+  .dashview-grid-main,
+  .dashview-grid-sidebar,
+  .dashview-grid-footer {
+    display: block;
+    margin-bottom: 1em;
+  }
+}

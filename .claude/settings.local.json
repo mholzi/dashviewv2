@@ -32,7 +32,13 @@
       "Bash(npm run lint)",
       "Bash(npm test)",
       "Bash(npm install:*)",
-      "Bash(npm run build:prod:*)"
+      "Bash(npm run build:prod:*)",
+      "Bash(git describe:*)",
+      "Bash(--title \"v0.2.0 - Intelligent Dashboard Framework\" )",
+      "Bash(--notes-file RELEASE_NOTES_v0.2.0.md)",
+      "Bash(git remote get-url:*)",
+      "Bash(--repo mholzi/dashviewv2 )",
+      "Bash(--title \"v0.2.0 - Intelligent Dashboard Framework\" )"
     ],
     "deny": []
   }

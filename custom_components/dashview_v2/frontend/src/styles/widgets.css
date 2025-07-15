@@ -1,0 +1,368 @@
+/**
+ * Widget styles for Dashview V2.
+ * Base styles and utilities for all dashboard widgets.
+ */
+
+/* CSS Custom Properties for Widgets */
+:root {
+  /* Widget dimensions */
+  --dashview-widget-min-height: 200px;
+  --dashview-widget-max-height: 600px;
+  --dashview-widget-border-radius: 12px;
+  
+  /* Widget spacing */
+  --dashview-widget-padding: 16px;
+  --dashview-widget-header-padding: 16px;
+  --dashview-widget-content-padding: 16px;
+  
+  /* Widget colors */
+  --dashview-widget-background: var(--card-background-color, #fff);
+  --dashview-widget-border: var(--divider-color, rgba(0, 0, 0, 0.12));
+  --dashview-widget-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --dashview-widget-hover-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  
+  /* Widget animations */
+  --dashview-widget-transition: all 0.3s ease;
+  --dashview-widget-hover-scale: 1.02;
+}
+
+/* Base Widget Card */
+.dashview-widget {
+  background: var(--dashview-widget-background);
+  border-radius: var(--dashview-widget-border-radius);
+  box-shadow: var(--dashview-widget-shadow);
+  min-height: var(--dashview-widget-min-height);
+  display: flex;
+  flex-direction: column;
+  transition: var(--dashview-widget-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashview-widget:hover {
+  box-shadow: var(--dashview-widget-hover-shadow);
+}
+
+/* Widget Header */
+.dashview-widget-header {
+  padding: var(--dashview-widget-header-padding);
+  border-bottom: 1px solid var(--dashview-widget-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dashview-widget-header h2,
+.dashview-widget-header h3 {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: 500;
+  color: var(--primary-text-color);
+  flex: 1;
+}
+
+.dashview-widget-header-icon {
+  color: var(--secondary-text-color);
+  transition: transform 0.3s ease;
+}
+
+.dashview-widget-header-icon.expanded {
+  transform: rotate(180deg);
+}
+
+/* Widget Content */
+.dashview-widget-content {
+  flex: 1;
+  padding: var(--dashview-widget-content-padding);
+  overflow-y: auto;
+}
+
+/* Widget Footer */
+.dashview-widget-footer {
+  padding: 12px var(--dashview-widget-padding);
+  border-top: 1px solid var(--dashview-widget-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Widget Summary */
+.dashview-widget-summary {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  color: var(--secondary-text-color);
+  font-size: 0.9em;
+}
+
+.dashview-widget-summary-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dashview-widget-summary-item ha-icon {
+  --mdc-icon-size: 16px;
+}
+
+/* Widget States */
+.dashview-widget-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--dashview-widget-min-height);
+  color: var(--secondary-text-color);
+}
+
+.dashview-widget-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--dashview-widget-min-height);
+  color: var(--error-color, #f44336);
+  padding: var(--dashview-widget-padding);
+  text-align: center;
+  gap: 8px;
+}
+
+.dashview-widget-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--dashview-widget-min-height);
+  color: var(--secondary-text-color);
+  padding: var(--dashview-widget-padding);
+  text-align: center;
+}
+
+/* Entity List Styles */
+.dashview-entity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.dashview-entity-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--dashview-widget-border);
+  transition: background-color 0.2s ease;
+}
+
+.dashview-entity-row:last-child {
+  border-bottom: none;
+}
+
+.dashview-entity-row:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.dashview-entity-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.95em;
+}
+
+.dashview-entity-state {
+  color: var(--secondary-text-color);
+  font-size: 0.9em;
+  margin-left: 8px;
+}
+
+.dashview-entity-toggle {
+  margin-left: 8px;
+}
+
+/* Widget Action Buttons */
+.dashview-widget-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dashview-widget-action {
+  --mdc-theme-primary: var(--primary-color);
+}
+
+.dashview-widget-action ha-icon {
+  margin-right: 4px;
+}
+
+/* Room Widget Specific */
+.dashview-room-widget .dashview-widget-header {
+  background: linear-gradient(to bottom, rgba(var(--rgb-primary-color), 0.1), transparent);
+}
+
+/* Climate Widget Specific */
+.dashview-climate-widget {
+  min-height: 250px;
+}
+
+.dashview-climate-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3em;
+  font-weight: 300;
+  color: var(--primary-color);
+  padding: 24px;
+}
+
+.dashview-climate-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 8px;
+  padding: 16px;
+}
+
+/* Device Group Widget Specific */
+.dashview-device-group-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--secondary-background-color);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.dashview-device-group-count {
+  background: var(--primary-color);
+  color: var(--text-primary-color);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+}
+
+/* Quick Controls Widget Specific */
+.dashview-quick-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 12px;
+  padding: 16px;
+}
+
+.dashview-quick-control-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid var(--dashview-widget-border);
+  border-radius: 8px;
+  background: var(--card-background-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dashview-quick-control-button:hover {
+  background: var(--secondary-background-color);
+  transform: translateY(-2px);
+}
+
+.dashview-quick-control-button ha-icon {
+  --mdc-icon-size: 32px;
+  color: var(--primary-color);
+}
+
+.dashview-quick-control-label {
+  font-size: 0.8em;
+  text-align: center;
+  color: var(--secondary-text-color);
+}
+
+/* Widget Badges */
+.dashview-widget-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--primary-color);
+  color: var(--text-primary-color);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75em;
+  font-weight: 500;
+}
+
+/* Widget Skeleton Loading */
+.dashview-widget-skeleton {
+  animation: skeleton-loading 1.5s infinite ease-in-out;
+  background: linear-gradient(
+    90deg,
+    var(--secondary-background-color) 25%,
+    var(--divider-color) 50%,
+    var(--secondary-background-color) 75%
+  );
+  background-size: 200% 100%;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Responsive Widget Adjustments */
+@media (max-width: 767px) {
+  .dashview-widget {
+    --dashview-widget-padding: 12px;
+    --dashview-widget-border-radius: 8px;
+  }
+  
+  .dashview-widget-header h2,
+  .dashview-widget-header h3 {
+    font-size: 1.1em;
+  }
+  
+  .dashview-climate-display {
+    font-size: 2.5em;
+  }
+}
+
+/* Dark Theme Adjustments */
+@media (prefers-color-scheme: dark) {
+  .dashview-widget {
+    --dashview-widget-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --dashview-widget-hover-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+  
+  .dashview-entity-row:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+}
+
+/* Accessibility */
+.dashview-widget:focus-within {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.dashview-widget-header:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: -2px;
+}
+
+/* Print Styles */
+@media print {
+  .dashview-widget {
+    box-shadow: none;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  
+  .dashview-widget-content {
+    overflow: visible;
+    max-height: none;
+  }
+}
