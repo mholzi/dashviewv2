@@ -4,6 +4,7 @@ import logging
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.typing import ConfigType
+from homeassistant.components.http import StaticPathConfig
 
 from .backend.api import register_websocket_commands
 from .const import (
@@ -51,11 +52,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     _LOGGER.info("Registered WebSocket commands")
     
     # Register the static path for serving the frontend build
-    hass.http.register_static_path(
-        DASHBOARD_URL,
-        hass.config.path("custom_components/dashview_v2/panel"),
-        True
-    )
+    await hass.http.async_register_static_paths([
+        StaticPathConfig(
+            DASHBOARD_URL,
+            hass.config.path("custom_components/dashview_v2/panel"),
+            True
+        )
+    ])
     _LOGGER.debug(f"Registered static path: {DASHBOARD_URL}")
     
     # Register the dashboard in the sidebar
