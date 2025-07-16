@@ -1,7 +1,7 @@
 """Constants for the Dashview V2 integration."""
 
 DOMAIN = "dashview_v2"
-VERSION = "0.2.5"
+VERSION = "0.2.8"
 
 # Dashboard constants
 DASHBOARD_URL = "/dashview_v2-dashboard"

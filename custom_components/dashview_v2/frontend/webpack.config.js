@@ -12,14 +12,12 @@ const enableAnalyzer = process.env.ANALYZE === 'true';
 module.exports = {
   mode: isProduction ? 'production' : 'development',
   entry: {
-    'dashview-v2-panel': './src/panel-entry.ts',
+    'dashview-v2-panel': './src/panel-debug.ts',
   },
   output: {
     path: path.resolve(__dirname, '../panel'),
     filename: '[name].js',
-    library: 'DashviewV2',
-    libraryTarget: 'umd',
-    libraryExport: 'default',
+    // Remove all library configuration - let it be a simple script
     publicPath: '/local/dashview-v2/',
   },
   devtool: isProduction ? 'source-map' : 'eval-source-map',
@@ -81,9 +79,9 @@ module.exports = {
       new TerserPlugin({
         terserOptions: {
           compress: {
-            drop_console: isProduction,
+            drop_console: false, // Keep console logs for debugging
             drop_debugger: isProduction,
-            pure_funcs: ['console.log', 'console.debug'],
+            pure_funcs: [], // Don't remove any functions
           },
           format: {
             comments: false,
@@ -93,21 +91,7 @@ module.exports = {
       }),
       new CssMinimizerPlugin(),
     ],
-    splitChunks: {
-      chunks: 'all',
-      cacheGroups: {
-        lit: {
-          test: /[\\/]node_modules[\\/](lit|@lit)[\\/]/,
-          name: 'vendor-lit',
-          priority: 10,
-        },
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          priority: 1,
-        },
-      },
-    },
+    splitChunks: false, // Disable code splitting for now
   },
   plugins: [
     new CleanWebpackPlugin(),
