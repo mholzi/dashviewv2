@@ -12,13 +12,14 @@ const enableAnalyzer = process.env.ANALYZE === 'true';
 module.exports = {
   mode: isProduction ? 'production' : 'development',
   entry: {
-    'dashview-v2-panel': './src/panel.ts',
+    'dashview-v2-panel': './src/panel-entry.ts',
   },
   output: {
     path: path.resolve(__dirname, '../panel'),
     filename: '[name].js',
     library: 'DashviewV2',
     libraryTarget: 'umd',
+    libraryExport: 'default',
     publicPath: '/local/dashview-v2/',
   },
   devtool: isProduction ? 'source-map' : 'eval-source-map',
