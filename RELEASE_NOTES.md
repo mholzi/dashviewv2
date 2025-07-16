@@ -1,46 +1,46 @@
-# Release Notes - v0.1.0
+# Release Notes - v0.2.5
 
-## 🎉 Initial Release of Dashview V2
+## 🔧 Critical Compatibility Fix
 
-This is the first release of Dashview V2, a custom Home Assistant panel that provides a foundation for dashboard functionality.
+This hotfix release resolves the integration setup error with Home Assistant 2025.7+ by updating the frontend panel registration API.
 
-### ✨ Features
+## 🐛 Bug Fixes
 
-- **Custom Panel Integration**: Appears directly in your Home Assistant sidebar
-- **Modern Technology**: Built with Lit Element 3.0 for optimal performance  
-- **Responsive Design**: Adapts to different screen sizes with Home Assistant theming
-- **HACS Compatible**: Easy installation through the Home Assistant Community Store
-- **Hello World Foundation**: Simple starting point ready for future enhancements
+- **Frontend Panel Registration**: Fixed `AttributeError: 'HomeAssistant' object has no attribute 'components'` error
+- **HA 2025.7+ Compatibility**: Updated to use direct imports from `homeassistant.components.frontend`
+- **API Migration**: Changed from deprecated `hass.components.frontend` to proper function imports
 
-### 📦 Installation
+## 🔄 Technical Details
 
-#### HACS (Recommended)
-1. Add this repository as a custom repository in HACS
-2. Install "Dashview V2" 
-3. Restart Home Assistant
+The fix addresses the Home Assistant core deprecation where accessing frontend functions through `hass.components.frontend` was removed in favor of direct imports. This change:
 
-#### Manual
+1. **Maintains compatibility** with Home Assistant 2025.7+ while keeping the same functionality
+2. **Follows current best practices** for Home Assistant integration development
+3. **Preserves all existing features** including:
+   - Custom panel registration in the sidebar
+   - Static path serving for frontend assets
+   - Proper cleanup on component unload
+   - WebSocket command registration
+
+## 📦 Installation
+
+### HACS (Recommended)
+1. Update to the latest version in HACS
+2. Restart Home Assistant
+
+### Manual
 1. Download the source code from the assets below
-2. Extract `custom_components/dashview_v2` to your Home Assistant config directory
+2. Extract `custom_components/dashview_v2` to your config directory
 3. Restart Home Assistant
 
-### 🔧 Requirements
+## 🔧 Requirements
+- Home Assistant 2025.7 or newer
+- Previous installations will be automatically updated
 
-- Home Assistant 2024.4.1 or newer
-- HACS (for HACS installation method)
+## ⚠️ Important Notes
+- This is a **critical update** for users running Home Assistant 2025.7 or later
+- The integration will fail to load without this fix on newer HA versions
+- No configuration changes required - update and restart
 
-### 📝 What's Included
-
-- Full HACS-compatible component structure
-- Custom panel with "Hello World" message
-- Comprehensive documentation
-- Unit tests
-- GitHub Actions CI/CD workflow
-
-### 🚀 Next Steps
-
-This release provides the foundation for building advanced dashboard features. Future releases will add:
-- Real-time data visualization
-- Device monitoring capabilities
-- Custom widgets and cards
-- Integration with external services
+## 🙏 Thanks
+Thanks to all users who reported this compatibility issue and helped with testing!
