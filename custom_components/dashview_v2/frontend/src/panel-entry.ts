@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Export version for debugging
-export const DASHVIEW_VERSION = '0.2.6';
+export const DASHVIEW_VERSION = '0.2.7';
 
 /**
  * Create Home Assistant panel function
