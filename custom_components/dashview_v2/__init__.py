@@ -5,6 +5,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.components.http import StaticPathConfig
+from homeassistant.components.frontend import async_register_built_in_panel, async_remove_panel
 
 from .backend.api import register_websocket_commands
 from .const import (
@@ -62,7 +63,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     _LOGGER.debug(f"Registered static path: {DASHBOARD_URL}")
     
     # Register the dashboard in the sidebar
-    hass.components.frontend.async_register_built_in_panel(
+    async_register_built_in_panel(
+        hass,
         component_name="custom",
         sidebar_title=PANEL_TITLE,
         sidebar_icon=PANEL_ICON,
@@ -87,7 +89,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     _LOGGER.info("Unloading Dashview V2")
     
     # Remove the panel
-    hass.components.frontend.async_remove_panel("dashview-v2")
+    async_remove_panel(hass, "dashview-v2")
     
     # Clear data
     hass.data[DOMAIN].clear()
