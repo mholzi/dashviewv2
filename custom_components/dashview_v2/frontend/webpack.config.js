@@ -12,7 +12,7 @@ const enableAnalyzer = process.env.ANALYZE === 'true';
 module.exports = {
   mode: isProduction ? 'production' : 'development',
   entry: {
-    'dashview-v2-panel': './src/panel-debug.ts',
+    'dashview-v2-panel': './src/panel-entry.ts',
   },
   output: {
     path: path.resolve(__dirname, '../panel'),
